@@ -19,7 +19,7 @@ class CardTarefa extends StatelessWidget {
               CrossAxisAlignment.start, //alinhar no começo da pagina
           children: [
             Align(
-              child: Text('Titulo'),
+              child: Text('Titulo'), //alinhando somente o text titulo no meio
               alignment: Alignment.center,
             ),
             Text('Descrição'),

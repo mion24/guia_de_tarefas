@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
+            //abrir nova pagina  push significa empilhar a pag
             MaterialPageRoute(builder: (context) => NovaTarefa()),
           );
         },
