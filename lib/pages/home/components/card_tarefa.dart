@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:guia_de_tarefas/pages/nova_tarefa/modelos/tarefa.dart';
+import 'package:guia_de_tarefas/pages/nova_tarefa/tarefas.dart';
 
 class CardTarefa extends StatelessWidget {
-  const CardTarefa({Key? key}) : super(key: key);
+  final Tarefa tarefa;
+  final Tarefas tarefas;
+  const CardTarefa({Key? key, required this.tarefa, required this.tarefas})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +24,14 @@ class CardTarefa extends StatelessWidget {
               CrossAxisAlignment.start, //alinhar no começo da pagina
           children: [
             Align(
-              child: Text('Titulo'), //alinhando somente o text titulo no meio
+              child: Text(tarefa.titulo ??
+                  ''), //alinhando somente o text titulo no meio
               alignment: Alignment.center,
             ),
-            Text('Descrição'),
-            Text('Data'),
-            Text('Hora'),
+            Text('Descrição: ${tarefa.descricao} ?? ' ''),
+            Text(
+                'Data: ${tarefas.formatadorDeData.format(tarefa.data!)}'), //formatar daata
+            Text('Hora ${tarefa.hora!.format(context)}'),
           ],
         ),
       ),

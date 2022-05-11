@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:guia_de_tarefas/pages/nova_tarefa/modelos/tarefa.dart';
 import 'package:guia_de_tarefas/pages/nova_tarefa/tarefas.dart';
 
 class NovaTarefa extends StatefulWidget {
-  const NovaTarefa({Key? key}) : super(key: key);
+  final Tarefas tarefas;
+
+  const NovaTarefa({Key? key, required this.tarefas}) : super(key: key);
 
   @override
   State<NovaTarefa> createState() => _NovaTarefaState();
@@ -10,9 +13,12 @@ class NovaTarefa extends StatefulWidget {
 
 class _NovaTarefaState extends State<NovaTarefa> {
   @override
-  var tarefas = Tarefas(); //usar ctrl . pra importar o arquivo extra
+  //usar ctrl . pra importar o arquivo extra
   var data = DateTime.now();
   var hora = TimeOfDay.now(); //hora do dia atual
+
+  TextEditingController tituloController = TextEditingController(text: '');
+  TextEditingController descricaoController = TextEditingController(text: '');
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +31,7 @@ class _NovaTarefaState extends State<NovaTarefa> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              controller: tituloController,
               decoration: InputDecoration(
                 label: Text('Titulo'),
                 hintText: 'Digite o título',
@@ -35,6 +42,7 @@ class _NovaTarefaState extends State<NovaTarefa> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              controller: descricaoController,
               decoration: InputDecoration(
                 label: Text('Descrição'),
                 hintText: 'Digite a descrição',
@@ -67,7 +75,7 @@ class _NovaTarefaState extends State<NovaTarefa> {
                   },
                   icon: Icon(Icons.date_range),
                 ),
-                Text(tarefas.formatadorDeData.format(data)),
+                Text(widget.tarefas.formatadorDeData.format(data)),
               ],
             ),
           ),
@@ -93,6 +101,24 @@ class _NovaTarefaState extends State<NovaTarefa> {
               ],
             ),
           ),
+          Container(
+              width: 150,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: () {
+                  var tarefa = Tarefa(
+                    titulo: tituloController.text,
+                    descricao: descricaoController.text,
+                    data: data,
+                    hora: hora,
+                  );
+                  widget.tarefas.adicionarTarefa(tarefa);
+                },
+                child: Text('Salvar'),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.green.shade400)),
+              ))
         ],
       ),
     );
