@@ -113,6 +113,7 @@ class _NovaTarefaState extends State<NovaTarefa> {
                     hora: hora,
                   );
                   widget.tarefas.adicionarTarefa(tarefa);
+                  Navigator.pop(context);
                 },
                 child: Text('Salvar'),
                 style: ButtonStyle(
